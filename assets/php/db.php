@@ -1,4 +1,8 @@
 <?php
+// Ativa a exibição de erros para ajudar no diagnóstico
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Database connection settings
 $DB_HOST =$_ENV['DB_HOST'];
 $DB_USER =$_ENV['DB_USER']; // seu usuário do banco de dados
@@ -19,6 +23,12 @@ function getBlogPosts() {
     global $conn;
     $sql = "SELECT * FROM blog_posts";
     $result = $conn->query($sql);
+    
+    // Verifica se a consulta foi bem-sucedida
+    if ($result === false) {
+        die("Erro na consulta SQL: " . $conn->error); // Exibe mensagem de erro
+    }
+
     $posts = [];
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
