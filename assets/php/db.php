@@ -1,22 +1,18 @@
 <?php
-// Ativa a exibição de erros para ajudar no diagnóstico
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Configurações da conexão ao banco de dados
+$servername = "SEU_NOME_DE_SERVIDOR"; // Host correto do banco de dados
+$username = "SEU_NOME_DE_USUARIO"; // Nome de usuário do banco de dados
+$password = "SUA_SENHA"; // Senha do banco de dados
+$dbname = "SEU_NOME_DE_BANCO"; // Nome do banco de dados
 
-// Database connection settings
-$DB_HOST =$_ENV['DB_HOST'];
-$DB_USER =$_ENV['DB_USER']; // seu usuário do banco de dados
-$DB_PASSWORD =$_ENV['DB_PASSWORD']; // sua senha do banco de dados
-$DB_NAME =$_ENV['DB_NAME']; // o nome do banco de dados
-$DB_PORT =$_ENV['DB_PORT'];
+// Cria Conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Create connection
-$conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME, $DB_PORT);
-
-// Check connection
+// Verifica a conexão
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+echo "Conexão bem-sucedida!<br>"; // Para depuração
 
 // Function to fetch blog posts
 function getBlogPosts() {
