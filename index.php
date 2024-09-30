@@ -563,18 +563,15 @@ $result = $conn->query($sql);
               } else {
                 echo '<p>Nenhuma imagem adicional armazenada.</p>';
               }
+              // Fecha a conexão
+                $conn->close();
             }
           }
           ?>
         </section>
 
       </article>
-
-      <?php
-      // Fecha a conexão
-      $conn->close();
-      ?>
-
+      
       <!--
         - #CONTACT
       -->
