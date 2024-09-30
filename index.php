@@ -1,6 +1,9 @@
 <?php
 include './assets/php/db.php'; // Inclui o arquivo de conexão com o banco de dados
 
+// Define o charset da conexão para evitar problemas com caracteres especiais
+mysqli_set_charset($conn, "utf8");
+
 // Definindo o cookie com a URL do mapa
 $map_url = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d117091.82339552487!2d-47.5111602955855!3d-23.492205541542553!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5f54bcad87989%3A0x4a9099fb9d10cb8e!2sSorocaba%2C%20State%20of%20S%C3%A3o%20Paulo!5e0!3m2!1sen!2sbr!4v1722484916202!5m2!1sen!2sbr";
 setcookie("sorocaba_map", "$map_url", [
