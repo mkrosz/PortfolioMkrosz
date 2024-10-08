@@ -1,30 +1,42 @@
 <?php
 // Configurações da conexão ao banco de dados
-$servername = "SEU_NOME_DE_SERVIDOR"; // Host correto do banco de dados
-$username = "SEU_NOME_DE_USUARIO"; // Nome de usuário do banco de dados
-$password = "SUA_SENHA"; // Senha do banco de dados
-$dbname = "SEU_NOME_DE_BANCO"; // Nome do banco de dados
+$servername = "sql108.infinityfree.com";  // Host correto do banco de dados
+$username = "if0_37413690";               // Nome de usuário do banco de dados
+$password = "eXuVc41q9QQlr5";             // Senha do banco de dados
+$dbname = "if0_37413690_portfolio_db";    // Nome do banco de dados
 
-// Cria Conexão
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica a conexão
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Conexão bem-sucedida!<br>"; // Para depuração
+
+// Função para obter o conteúdo da tabela
+function getContent($tableName, $orderByDate = false)
+{
+    global $conn;
+    // Verifica se a ordenação pela data deve ser aplicada
+    if ($orderByDate) {
+        $sql = "SELECT * FROM $tableName ORDER BY `date` DESC"; // Ordena pela coluna 'date'
+    } else {
+        $sql = "SELECT * FROM $tableName"; // Sem ordenação
+    }
+    
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    return [];
+}
+
 
 // Function to fetch blog posts
 function getBlogPosts() {
     global $conn;
-    $sql = "SELECT * FROM blog_posts";
+    $sql = "SELECT * FROM blog";
     $result = $conn->query($sql);
-    
-    // Verifica se a consulta foi bem-sucedida
-    if ($result === false) {
-        die("Erro na consulta SQL: " . $conn->error); // Exibe mensagem de erro
-    }
-
     $posts = [];
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -57,5 +69,20 @@ function getTools() {
     
     // Retorna as ferramentas
     return $tools;
+}
+
+function fetchDataFromDatabase($query) {
+    // Supondo que você já tenha a conexão com o banco de dados configurada
+    // Exemplo de como executar a query e retornar os dados
+    global $conn; // Supondo que $conn seja sua conexão ao banco
+
+    $result = mysqli_query($conn, $query);
+    $data = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+
+    return $data;
 }
 ?>
