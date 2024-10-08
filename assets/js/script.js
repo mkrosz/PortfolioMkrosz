@@ -240,7 +240,6 @@ function showPosts() {
 
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const filterButtons = document.querySelectorAll('[data-filter-btn]');
   const projectItems = document.querySelectorAll('.project-item');
